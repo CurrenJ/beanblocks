@@ -68,6 +68,7 @@ public class BeanBlocks {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        BeanBlocksSoundHandler.registerSounds();
         ModRecipes.init();
     }
 

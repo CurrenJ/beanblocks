@@ -1,0 +1,7 @@
+{
+	"block.noise_machine":{
+		"category":"block",
+		"subtitle":"block.noise_machine",
+		"sounds":[{"name":"beanblocks:block/noise_machine/noise1", "stream":true}]
+	}
+}

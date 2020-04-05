@@ -23,6 +23,7 @@ tile.bean_press.name=Bean Press
 tile.bean_recycler.name=Bean Recycler
 tile.bean_block_hardened.name=Hardened Bean Block
 tile.bean_block_polished.name=Polished Bean Block
+tile.noise_machine.name=Sonic Bean Machine
 
 # Entity
 entity.Bean.name=Living Bean

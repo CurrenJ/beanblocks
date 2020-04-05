@@ -27,6 +27,7 @@ public class ModBlocks {
     public static BlockBeanBucketFull blockBeanBucketFull = new BlockBeanBucketFull();
     public static BlockBeanPress blockBeanPress = new BlockBeanPress();
     public static BlockBeanRecycler blockBeanRecycler = new BlockBeanRecycler();
+    public static BlockNoiseMachine blockNoiseMachine = new BlockNoiseMachine(Material.ROCK, "noise_machine", CreativeTabs.BUILDING_BLOCKS);
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -37,7 +38,8 @@ public class ModBlocks {
                 blockBeanBucket,
                 blockBeanBucketFull,
                 blockBeanPress,
-                blockBeanRecycler
+                blockBeanRecycler,
+                blockNoiseMachine
         );
 
         registerTileEntity(blockBeanPress.getTileEntityClass(), "bean_press");
@@ -57,7 +59,8 @@ public class ModBlocks {
                 blockBeanBucket.createItemBlock(),
                 blockBeanBucketFull.createItemBlock(),
                 blockBeanPress.createItemBlock(),
-                blockBeanRecycler.createItemBlock()
+                blockBeanRecycler.createItemBlock(),
+                blockNoiseMachine.createItemBlock()
         );
     }
 
@@ -69,6 +72,7 @@ public class ModBlocks {
         blockBeanBucketFull.registerItemModel(Item.getItemFromBlock(blockBeanBucketFull));
         blockBeanPress.registerItemModel(Item.getItemFromBlock(blockBeanPress));
         blockBeanRecycler.registerItemModel(Item.getItemFromBlock(blockBeanRecycler));
+        blockNoiseMachine.registerItemModel(Item.getItemFromBlock(blockNoiseMachine));
     }
 
 }

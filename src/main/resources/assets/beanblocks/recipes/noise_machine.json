@@ -1,0 +1,19 @@
+{
+	"pattern": [
+		"SSS",
+		"SsS",
+		"SSS"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"S": {
+			"item": "beanblocks:beans_compressed"
+		},
+		"s": {
+			"item": "minecraft:noteblock"
+		}
+	},
+	"result": {
+		"item": "beanblocks:noise_machine"
+	}
+}

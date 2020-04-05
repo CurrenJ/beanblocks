@@ -10,6 +10,7 @@
 		}
 	},
 	"result": {
-		"item": "beanblocks:bean_block_hardened"
+		"item": "beanblocks:bean_block_hardened",
+		"count": 4
 	}
 }
