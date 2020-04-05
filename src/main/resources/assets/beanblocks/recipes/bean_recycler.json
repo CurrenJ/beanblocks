@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"BBB",
+		"B B",
+		"BBB"
+	],
+	"key": {
+		"B": {
+			"item": "beanblocks:bean_block_polished"
+		}
+	},
+	"result": {
+		"item": "beanblocks:bean_recycler"
+	}
+}

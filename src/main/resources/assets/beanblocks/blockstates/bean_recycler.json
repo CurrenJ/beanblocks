@@ -1,0 +1,26 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"side": "beanblocks:blocks/bean_block_polished_bean",
+			"end": "beanblocks:blocks/bean_block_polished"
+		},
+		"model": "cube_column"
+	},
+	"variants": {
+		"normal": [{
+			"textures": {
+				"side": "beanblocks:blocks/bean_block_polished_bean",
+				"end": "beanblocks:blocks/bean_block_polished"
+			},
+			"model": "cube_column"
+		}],
+		"inventory": [{
+			"textures": {
+				"side": "beanblocks:blocks/bean_block_polished_bean",
+				"end": "beanblocks:blocks/bean_block_polished"
+			},
+			"model": "cube_column"
+		}]
+	}
+}

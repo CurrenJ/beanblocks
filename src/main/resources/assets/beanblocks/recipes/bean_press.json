@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"C C",
+		"CBC",
+		"CCC"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:cobblestone"
+		},
+		"B": {
+			"item": "beanblocks:bean_pinto"
+		}
+	},
+	"result": {
+		"item": "beanblocks:bean_press"
+	}
+}

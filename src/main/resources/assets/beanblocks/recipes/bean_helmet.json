@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"C C"
+	],
+	"key": {
+		"C": {
+			"item": "beanblocks:beans_compressed"
+		}
+	},
+	"result": {
+		"item": "beanblocks:bean_helmet"
+	}
+}

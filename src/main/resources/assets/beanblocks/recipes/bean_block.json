@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CC",
+		"CC"
+	],
+	"key": {
+		"C": {
+			"item": "beanblocks:beans_compressed"
+		}
+	},
+	"result": {
+		"item": "beanblocks:bean_block",
+		"count": 4
+	}
+}

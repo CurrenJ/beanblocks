@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"BB",
+		"BB"
+	],
+	"key": {
+		"B": {
+			"item": "beanblocks:bean_block_hardened"
+		}
+	},
+	"result": {
+		"item": "beanblocks:bean_block_polished",
+		"count": 4
+	}
+}

@@ -1,0 +1,28 @@
+# Items
+item.bean_pinto.name=Pinto Bean
+item.bean_pod_pinto.name=Pinto Bean Pod
+item.beans_compressed.name=Compressed Beans
+item.press_filter.filter_funnel.name=Funnel
+item.press_filter.filter_brick_mold.name=Brick Ingot Mold
+item.recycler_filter.metal_filter.name=Metal Sieve
+item.recycler_filter.gem_filter.name=Gem Sieve
+item.recycler_filter.wooden_filter.name=Wooden Sieve
+item.recycler_filter.organic_filter.name=Organic Sieve
+item.dense_bean_bar.name=Dense Bean Bar
+item.bean_helmet.name=Bean Helmet
+item.bean_chestplate.name=Bean Chestplate
+item.bean_leggings.name=Bean Leggings
+item.bean_boots.name=Bean Boots
+
+
+# Blocks
+tile.bean_block.name=Block of Beans
+tile.bean_bucket.name=Bean Bucket (Empty)
+tile.bean_bucket_full.name=Bucket of Beans
+tile.bean_press.name=Bean Press	
+tile.bean_recycler.name=Bean Recycler
+tile.bean_block_hardened.name=Hardened Bean Block
+tile.bean_block_polished.name=Polished Bean Block
+
+# Entity
+entity.Bean.name=Living Bean

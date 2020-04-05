@@ -1,0 +1,21 @@
+
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"SSS",
+		"SsS",
+		"SSS"
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:stick"
+		},
+		"s": {
+			"item": "minecraft:string"
+		}
+	},
+	"result": {
+		"item": "beanblocks:recycler_filter",
+		"data": 2
+	}
+}

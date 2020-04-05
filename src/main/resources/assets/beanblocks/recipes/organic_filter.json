@@ -1,0 +1,22 @@
+{
+	"pattern": [
+		"SSS",
+		"SsS",
+		"SSS"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"S": {
+		  "ore": "treeLeaves",
+		  "type": "forge:ore_dict"
+		},
+		"s": {
+			"item": "beanblocks:recycler_filter",
+			"data": 2
+		}
+	},
+	"result": {
+		"item": "beanblocks:recycler_filter",
+		"data": 3
+	}
+}

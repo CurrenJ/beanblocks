@@ -1,0 +1,22 @@
+
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"S S",
+		" s ",
+		"S S"
+	],
+	"key": {
+		"s": {
+			"item": "beanblocks:recycler_filter",
+			"data": 0
+		},
+		"S": {
+			"item": "minecraft:diamond"
+		}
+	},
+	"result": {
+		"item": "beanblocks:recycler_filter",
+		"data": 1
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"C C",
+		"CCC",
+		"CCC"
+	],
+	"key": {
+		"C": {
+			"item": "beanblocks:beans_compressed"
+		}
+	},
+	"result": {
+		"item": "beanblocks:bean_chestplate"
+	}
+}

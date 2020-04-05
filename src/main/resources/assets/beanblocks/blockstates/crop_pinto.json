@@ -1,0 +1,50 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cross"
+	},
+	"variants": {
+		"age": {
+			"0": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/0"
+				}
+			},
+			"1": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/1"
+				}
+			},
+			"2": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/2"
+				}
+			},
+			"3": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/3"
+				}
+			},
+			"4": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/4"
+				}
+			},
+			"5": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/5"
+				}
+			},
+			"6": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/6"
+				}
+			},
+			"7": {
+				"textures": {
+					"cross": "beanblocks:blocks/crop_bean/7"
+				}
+			}
+		}
+	}
+}

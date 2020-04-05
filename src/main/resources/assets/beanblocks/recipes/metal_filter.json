@@ -1,0 +1,22 @@
+
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"SSS",
+		"SsS",
+		"SSS"
+	],
+	"key": {
+		"s": {
+			"item": "beanblocks:recycler_filter",
+			"data": 2
+		},
+		"S": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"item": "beanblocks:recycler_filter",
+		"data": 0
+	}
+}

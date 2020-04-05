@@ -1,0 +1,12 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"normal": {
+			"model": "beanblocks:bean_bucket_full"
+		},
+		"inventory": {
+			"model": "beanblocks:bean_bucket_full",
+			"transform": "forge:default-block"
+		}
+	}
+}

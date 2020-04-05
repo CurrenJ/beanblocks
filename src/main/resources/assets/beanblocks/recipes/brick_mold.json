@@ -1,0 +1,21 @@
+
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"CIC",
+		"CCC"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:brick"
+		},
+		"I": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"item": "beanblocks:press_filter",
+		"data": 0
+	}
+}
