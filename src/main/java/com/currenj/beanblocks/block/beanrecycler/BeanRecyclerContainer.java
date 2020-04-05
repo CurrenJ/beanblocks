@@ -21,7 +21,8 @@ public class BeanRecyclerContainer extends Container {
     private TileEntityBeanRecycler tileEntityBeanRecycler;
 
     public BeanRecyclerContainer(InventoryPlayer playerInv, final TileEntityBeanRecycler beanRecycler) {
-        IItemHandler inventory = beanRecycler.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+        IItemHandler inventory = beanRecycler.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+        IItemHandler outputInventory = beanRecycler.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
         tileEntityBeanRecycler = beanRecycler;
         //Input
         addSlotToContainer(new SlotItemHandler(inventory, 0, 26, 15) {
@@ -51,12 +52,12 @@ public class BeanRecyclerContainer extends Container {
                 beanRecycler.setBlockToUpdate();
             }
         });
-        int mySlots = 4;
 
+        int oSlots = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 5; j++) {
-                addSlotToContainer(new SlotItemHandler(inventory, mySlots, 80 + j * 18, 17 + i * 18));
-                mySlots++;
+                addSlotToContainer(new SlotItemHandler(outputInventory, oSlots, 80 + j * 18, 17 + i * 18));
+                oSlots++;
             }
         }
 

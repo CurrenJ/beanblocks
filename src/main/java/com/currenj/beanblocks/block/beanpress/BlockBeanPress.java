@@ -2,10 +2,16 @@ package com.currenj.beanblocks.block.beanpress;
 
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.ModGuiHandler;
+import com.currenj.beanblocks.block.BlockBean;
 import com.currenj.beanblocks.block.BlockTileEntity;
+import com.currenj.beanblocks.item.ItemBeanPinto;
+import com.currenj.beanblocks.item.ItemBeansCompressed;
+import com.currenj.beanblocks.item.ItemDenseBeanBar;
 import com.currenj.beanblocks.item.filter.press.ItemPressFilter;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,18 +31,25 @@ public class BlockBeanPress extends BlockTileEntity<TileEntityBeanPress> {
         if (!world.isRemote) {
             ItemStack heldItem = player.getHeldItem(hand);
             TileEntityBeanPress tile = getTileEntity(world, pos);
-            IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
-            if (!player.isSneaking()) {
+            IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
+            if (player.isSneaking()) {
                 if (heldItem.isEmpty()) {
-                    if(itemHandler.getStackInSlot(0).getCount() > 0)
-                        player.setHeldItem(hand, itemHandler.extractItem(2, 64, false));
-                } else {
-                    if(heldItem.getItem() instanceof ItemPressFilter)
-                        player.setHeldItem(hand, itemHandler.insertItem(1, heldItem, false));
-                    else player.setHeldItem(hand, itemHandler.insertItem(0, heldItem, false));
+                    if(itemHandler.getStackInSlot(tile.getFilterSlot()).getCount() > 0)
+                        player.setHeldItem(hand, itemHandler.extractItem(tile.getFilterSlot(), 64, false));
                 }
                 tile.markDirty();
             } else {
+                if(heldItem.getItem() instanceof ItemPressFilter)
+                    player.setHeldItem(hand, itemHandler.insertItem(tile.getFilterSlot(), heldItem, false));
+                else if(heldItem.getItem() instanceof ItemBeanPinto)
+                    player.setHeldItem(hand, itemHandler.insertItem(tile.getBeanSlot(), heldItem, false));
+                else if(heldItem.getItem() instanceof ItemBeansCompressed)
+                    player.setHeldItem(hand, itemHandler.insertItem(tile.getBeanSlot(), heldItem, false));
+                else if(Block.getBlockFromItem(heldItem.getItem()) instanceof BlockBean)
+                    player.setHeldItem(hand, itemHandler.insertItem(tile.getBeanSlot(), heldItem, false));
+                else if(heldItem.getItem() instanceof ItemDenseBeanBar)
+                    player.setHeldItem(hand, itemHandler.insertItem(tile.getBeanSlot(), heldItem, false));
+
                 player.openGui(BeanBlocks.instance, ModGuiHandler.BEAN_PRESS, world, pos.getX(), pos.getY(), pos.getZ());
             }
         }
@@ -62,6 +75,7 @@ public class BlockBeanPress extends BlockTileEntity<TileEntityBeanPress> {
         super(Material.ROCK, "bean_press");
         setHardness(1.5F);
         setHarvestLevel("pickaxe", 1);
+        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
     }
 
     @Override

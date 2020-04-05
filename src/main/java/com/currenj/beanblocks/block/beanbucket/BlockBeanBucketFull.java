@@ -1,5 +1,6 @@
 package com.currenj.beanblocks.block.beanbucket;
 
+import com.currenj.beanblocks.block.BlockBean;
 import com.currenj.beanblocks.block.BlockTileEntity;
 import com.currenj.beanblocks.block.ModBlocks;
 import com.currenj.beanblocks.item.ModItems;
@@ -18,7 +19,9 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -55,6 +58,11 @@ public class BlockBeanBucketFull extends BlockTileEntity<TileEntityBeanBucketFul
     @Deprecated
     public boolean isFullCube(IBlockState state) {
         return false;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos){
+        return BlockBeanBucket.BEAN_BUCKET_AABB;
     }
 
     @Override

@@ -33,7 +33,8 @@ import java.util.Random;
 
 public class TileEntityBeanRecycler extends TileEntity implements ITickable {
 
-    private ItemStackHandler inventory = new ItemStackHandler(19);
+    private ItemStackHandler inventory = new ItemStackHandler(4);
+    private ItemStackHandler outputInventory = new ItemStackHandler(15);
     private int recycleTime;
     private double beanWaste;
     private boolean risingEdge;
@@ -74,6 +75,7 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
         compound.setInteger("RecycleTime", (short)this.recycleTime);
         compound.setDouble("BeanWaste", this.beanWaste);
         compound.setTag("inventory", inventory.serializeNBT());
+        compound.setTag("oInventory", outputInventory.serializeNBT());
         return compound;
     }
 
@@ -81,6 +83,7 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+        outputInventory.deserializeNBT(compound.getCompoundTag("oInventory"));
         this.recycleTime = compound.getInteger("RecycleTime");
         this.beanWaste = compound.getDouble("BeanWaste");
     }
@@ -123,14 +126,7 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
-    }
-
-    public int getFirstOutputSlot(){
-        return 4;
-    }
-    public int getLastOutputSlot(){
-        return 18;
+        return EnumFacing.DOWN == facing ? (T)outputInventory : (T)inventory;
     }
 
     public int getFilterSlot(){
@@ -171,20 +167,18 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
 
         ItemStack inputStack = inventory.getStackInSlot(getBeanSlot());
         ItemStack filterStack = inventory.getStackInSlot(getFilterSlot());
-        int firstOutputSlot = getFirstOutputSlot();
-        int lastOutputSlot = getLastOutputSlot();
         boolean jammed = false;
-        if(canTryRecycle(inputStack, filterStack, firstOutputSlot, lastOutputSlot)){
+        if(canTryRecycle(inputStack, filterStack)){
             if(!risingEdge) {
                 recycleTime = getMaxRecycleTime();
                 risingEdge = true;
             }
             if(recycleTime <= 0){
                     ArrayList<ItemStack> outputItems = getOutputStack(inputStack, filterStack);
-                    if(hasSpaceFor(outputItems, firstOutputSlot, lastOutputSlot) && beanWaste < BlockBeanRecycler.beanWasteMax) {
+                    if(hasSpaceFor(outputItems) && beanWaste < BlockBeanRecycler.beanWasteMax) {
                         recycleTime = getMaxRecycleTime();
                         beanWaste += getBeanWasteValue(inputStack);
-                        finishRecycle(outputItems, inputStack, filterStack, firstOutputSlot, lastOutputSlot);
+                        finishRecycle(outputItems, inputStack, filterStack);
                         System.out.println("Finished recycle. [" + toString() + "]");
                         setBlockToUpdate();
                     } else {
@@ -200,21 +194,19 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
     public boolean isRecycling(){
         ItemStack inputStack = inventory.getStackInSlot(getBeanSlot());
         ItemStack filterStack = inventory.getStackInSlot(getFilterSlot());
-        int firstOutputSlot = getFirstOutputSlot();
-        int lastOutputSlot = getLastOutputSlot();
-        if(recycleTime > 0 || canTryRecycle(inputStack, filterStack, firstOutputSlot, lastOutputSlot))
+        if(recycleTime > 0 || canTryRecycle(inputStack, filterStack))
             return true;
         else return false;
     }
 
-    public boolean canTryRecycle(ItemStack input, ItemStack filter, int firstOutputSlot, int lastOutputSlot){
-        return canTryRecycle("bean_pinto", input, filter, firstOutputSlot, lastOutputSlot) ||
-                canTryRecycle("beans_compressed", input, filter, firstOutputSlot, lastOutputSlot) ||
-                canTryRecycle("bean_block", input, filter, firstOutputSlot, lastOutputSlot) ||
-                canTryRecycle("dense_bean_bar", input, filter, firstOutputSlot, lastOutputSlot);
+    public boolean canTryRecycle(ItemStack input, ItemStack filter){
+        return canTryRecycle("bean_pinto", input, filter) ||
+                canTryRecycle("beans_compressed", input, filter) ||
+                canTryRecycle("bean_block", input, filter) ||
+                canTryRecycle("dense_bean_bar", input, filter);
     }
 
-    public boolean canTryRecycle(String inputOption, ItemStack input, ItemStack filter, int firstOutputSlot, int lastOutputSlot){
+    public boolean canTryRecycle(String inputOption, ItemStack input, ItemStack filter){
         if(inputOption.equals("bean_pinto")) {
             return filter.getItem() instanceof ItemRecyclerFilter && input.getItem() instanceof ItemBeanPinto && input.getCount() > 0;
         } else if(inputOption.equals("beans_compressed")) {
@@ -285,12 +277,12 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
         inventory.getStackInSlot(getBeanSlot()).shrink(1);
     }
 
-    private boolean hasSpaceFor(ArrayList<ItemStack> items, int firstOutputSlot, int lastOutputSlot){
+    private boolean hasSpaceFor(ArrayList<ItemStack> items){
         for(int s = 0; s < items.size(); s++) {
             ItemStack outputStack = items.get(s);
             int countInOutputStack = outputStack.getCount();
             //Iterate through output slots and subtract from the countInOutputStack when we can combine stacks, or place into an empty slot.
-            for (int i = firstOutputSlot; i < lastOutputSlot + 1 && countInOutputStack > 0; i++) {
+            for (int i = 0; i < outputInventory.getSlots() && countInOutputStack > 0; i++) {
                 ItemStack stackInSlot = inventory.getStackInSlot(i);
                 if (outputStack.getItem().getClass().isInstance(stackInSlot.getItem())){
                     countInOutputStack -= (stackInSlot.getMaxStackSize() - stackInSlot.getCount());
@@ -304,7 +296,7 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
         return true;
     }
 
-    public void finishRecycle(ArrayList<ItemStack> outputItems, ItemStack input, ItemStack filter, int firstOutputSlot, int lastOutputSlot){
+    public void finishRecycle(ArrayList<ItemStack> outputItems, ItemStack input, ItemStack filter){
         if(!world.isRemote) {
             System.out.print("Adding ");
             for (int s = 0; s < outputItems.size(); s++) {
@@ -312,8 +304,8 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
                 int countInOutputStack = outputStack.getCount();
                 System.out.print(outputStack.getItem().getUnlocalizedName() + "(" + countInOutputStack + "), ");
                 //Iterate through output slots and subtract from the countInOutputStack when we can combine stacks, or place into an empty slot.
-                for (int i = firstOutputSlot; i < lastOutputSlot + 1 && countInOutputStack > 0; i++) {
-                    ItemStack stackInSlot = inventory.getStackInSlot(i);
+                for (int i = 0; i < outputInventory.getSlots() && countInOutputStack > 0; i++) {
+                    ItemStack stackInSlot = outputInventory.getStackInSlot(i);
                     //If found stack of same type, merge.
                     //System.out.println(outputStack.getItem().getClass() + " |" + stackInSlot.getItem().getClass());
                     if (outputStack.getUnlocalizedName().equals(stackInSlot.getUnlocalizedName())) {
@@ -322,18 +314,18 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
                         if (countInOutputStack > spaceInSlotStack) {
                             //System.out.println("Merging partial output " + s + " into inventory slot " + i + " (" + spaceInSlotStack + " free)");
                             countInOutputStack -= spaceInSlotStack;
-                            inventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), stackInSlot.getMaxStackSize()));
+                            outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), stackInSlot.getMaxStackSize()));
                         }
                         //If the whole stack fits, put it all in.
                         else {
                             //System.out.println("Merging whole output " + s + " into inventory slot " + i + " (" + spaceInSlotStack + " free)");
-                            inventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack + stackInSlot.getCount()));
+                            outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack + stackInSlot.getCount()));
                             countInOutputStack = 0;
                         }
                         //If found an empty slot, deposit as much of the output stack as fits.
                     } else if (stackInSlot.isEmpty()) {
                         //System.out.println("Putting whole output " + s + " into empty inventory slot " + i + " (" + outputStack.getMaxStackSize() + " free)");
-                        inventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack));
+                        outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack));
                         countInOutputStack -= outputStack.getMaxStackSize();
                     }
                 }
