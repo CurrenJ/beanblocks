@@ -1,0 +1,24 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube_all",
+		"textures": {
+			"all": "beanblocks:blocks/ancient_beans1"
+		}
+	},
+	"variants": {
+		"normal": [
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans1" }, "y": 0 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans1" }, "y": 90 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans1" }, "y": 180 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans1" }, "y": 270 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans2" }, "y": 0 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans2" }, "y": 90 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans2" }, "y": 180 },
+		  { "textures": { "all": "beanblocks:blocks/ancient_beans2" }, "y": 270 }
+		],
+		"inventory": {
+			"model": "cube_all"
+		}
+	}
+}

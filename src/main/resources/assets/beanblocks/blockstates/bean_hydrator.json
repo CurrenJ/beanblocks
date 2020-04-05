@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"waterlevel": {
+		  10:  { "model": "beanblocks:bean_hydrator_10" },
+		  9: { "model": "beanblocks:bean_hydrator_9"},
+		  8: { "model": "beanblocks:bean_hydrator_8"},
+		  7: { "model": "beanblocks:bean_hydrator_7"},
+		  6: { "model": "beanblocks:bean_hydrator_6"},
+		  5: { "model": "beanblocks:bean_hydrator_5"},
+		  4: { "model": "beanblocks:bean_hydrator_4"},
+		  3: { "model": "beanblocks:bean_hydrator_3"},
+		  2: { "model": "beanblocks:bean_hydrator_2"},
+		  1: { "model": "beanblocks:bean_hydrator_1"},
+		  0: { "model": "beanblocks:bean_hydrator_0"}
+		},
+		"normal": {
+			"model": "beanblocks:bean_hydrator_0"
+		},
+		"inventory": {
+			"model": "beanblocks:bean_hydrator_0",
+			"transform": "forge:default-block"
+		}
+	}
+}

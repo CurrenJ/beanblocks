@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -64,6 +65,8 @@ public class BeanBlocks {
             RenderingRegistry.registerEntityRenderingHandler(EntityBean.class, RenderBean::new);
         }
         LootTableList.register(EntityBean.LOOT);
+
+        GameRegistry.registerWorldGenerator(new ModWorldGen(), 3);
     }
 
     @Mod.EventHandler

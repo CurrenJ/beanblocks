@@ -13,6 +13,7 @@ item.bean_helmet.name=Bean Helmet
 item.bean_chestplate.name=Bean Chestplate
 item.bean_leggings.name=Bean Leggings
 item.bean_boots.name=Bean Boots
+item.fossilized_beans.name=Fossilized Beans
 
 
 # Blocks
@@ -24,6 +25,7 @@ tile.bean_recycler.name=Bean Recycler
 tile.bean_block_hardened.name=Hardened Bean Block
 tile.bean_block_polished.name=Polished Bean Block
 tile.noise_machine.name=Sonic Bean Machine
+tile.bean_hydrator.name=Bean Hydrator
 
 # Entity
 entity.Bean.name=Living Bean

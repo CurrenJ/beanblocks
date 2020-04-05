@@ -15,6 +15,7 @@ public class ModItems {
     public static ItemPressFilter pressFilter = new ItemPressFilter("press_filter");
     public static ItemDenseBeanBar denseBeanBar = new ItemDenseBeanBar("dense_bean_bar");
     public static ItemRecyclerFilter recyclerFilter = new ItemRecyclerFilter("recycler_filter");
+    public static ItemFossilizedBeans itemFossilizedBeans = new ItemFossilizedBeans("fossilized_beans");
 
     public static ItemArmor beanHelmet = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.HEAD, "bean_helmet");
     public static ItemArmor beanChestplate = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.CHEST, "bean_chestplate");
@@ -31,7 +32,8 @@ public class ModItems {
                 beanHelmet,
                 beanChestplate,
                 beanLeggings,
-                beanBoots
+                beanBoots,
+                itemFossilizedBeans
         );
     }
 
@@ -41,6 +43,7 @@ public class ModItems {
         pressFilter.registerItemModels();
         denseBeanBar.registerItemModel();
         recyclerFilter.registerItemModels();
+        itemFossilizedBeans.registerItemModel();
 
         beanHelmet.registerItemModel();
         beanChestplate.registerItemModel();
