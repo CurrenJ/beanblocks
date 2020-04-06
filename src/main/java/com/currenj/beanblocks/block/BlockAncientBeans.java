@@ -14,6 +14,7 @@ public class BlockAncientBeans extends BlockBase {
         super(material, name);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         setHarvestLevel("pickaxe", 1);
+        setHardness(2F);
     }
 
     @Override

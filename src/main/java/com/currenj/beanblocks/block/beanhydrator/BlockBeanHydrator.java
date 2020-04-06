@@ -3,7 +3,6 @@ package com.currenj.beanblocks.block.beanhydrator;
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.ModGuiHandler;
 import com.currenj.beanblocks.block.BlockTileEntity;
-import com.sun.deploy.panel.IProperty;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;

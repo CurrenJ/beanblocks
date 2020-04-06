@@ -9,6 +9,7 @@ import com.currenj.beanblocks.item.ModItems;
 import com.currenj.beanblocks.item.filter.recycler.EnumRecyclerFilterVariants;
 import com.currenj.beanblocks.item.filter.recycler.ItemRecyclerFilter;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -26,10 +27,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class TileEntityBeanRecycler extends TileEntity implements ITickable {
 
@@ -38,35 +36,17 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
     private int recycleTime;
     private double beanWaste;
     private boolean risingEdge;
-    private static HashMap<Item, Double> dropChances;
+    private static ArrayList<RecyclerDrop> recyclerDrops;
     static {
-        dropChances = new HashMap<>();
-        dropChances.put(Items.DIAMOND, 0.01);
-        dropChances.put(Items.GOLD_NUGGET, 0.1);
-        dropChances.put(Items.IRON_NUGGET, 0.2);
-        dropChances.put(Item.getItemFromBlock(Blocks.DIRT), 0.07);
-        dropChances.put(Items.STICK, 0.03);
-        dropChances.put(Items.SLIME_BALL, 0.02);
-        dropChances.put(Items.ROTTEN_FLESH, 0.1);
-        dropChances.put(Items.LEATHER, 0.04);
-        dropChances.put(Item.getItemFromBlock(Blocks.LEAVES), 0.04);
-        dropChances.put(Item.getItemFromBlock(Blocks.LOG), 0.06);
-        dropChances.put(Item.getItemFromBlock(Blocks.PLANKS), 0.09);
-    }
-    private static HashMap<Item, ArrayList<EnumRecyclerFilterVariants>> dropFilters;
-    static {
-        dropFilters = new HashMap<>();
-        dropFilters.put(Items.DIAMOND, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); }});
-        dropFilters.put(Items.GOLD_NUGGET, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
-        dropFilters.put(Items.IRON_NUGGET, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
-        dropFilters.put(Item.getItemFromBlock(Blocks.DIRT), new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER); add(EnumRecyclerFilterVariants.ORGANICFILTER);}});
-        dropFilters.put(Items.STICK, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER); add(EnumRecyclerFilterVariants.ORGANICFILTER);}});
-        dropFilters.put(Items.SLIME_BALL, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER);}});
-        dropFilters.put(Items.ROTTEN_FLESH, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER);}});
-        dropFilters.put(Items.LEATHER, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER);}});
-        dropFilters.put(Item.getItemFromBlock(Blocks.LEAVES), new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.ORGANICFILTER); }});
-        dropFilters.put(Item.getItemFromBlock(Blocks.LOG), new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.ORGANICFILTER); }});
-        dropFilters.put(Item.getItemFromBlock(Blocks.PLANKS), new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.ORGANICFILTER); }});
+        recyclerDrops = new ArrayList<>();
+        recyclerDrops.add(new RecyclerDrop(Items.DIAMOND, 0.002, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Items.GOLD_NUGGET, 0.1,  new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Items.IRON_NUGGET, 0.2, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Item.getItemFromBlock(Blocks.DIRT), 0.07, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER); add(EnumRecyclerFilterVariants.ORGANICFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Items.STICK, 0.03, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER); add(EnumRecyclerFilterVariants.ORGANICFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Items.SLIME_BALL, 0.02, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Items.ROTTEN_FLESH, 0.1, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.METALFILTER); add(EnumRecyclerFilterVariants.WOODENFILTER); }}));
+        recyclerDrops.add(new RecyclerDrop(Items.LEATHER, 0.04, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }}));
     }
 
     @Override
@@ -152,7 +132,6 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
 
         if(beanWaste > 0 &&
                 inventory.getStackInSlot(getEmptyBucketSlot()).getCount() > 0 &&
-                inventory.getStackInSlot(getEmptyBucketSlot()).getCount() < inventory.getStackInSlot(getEmptyBucketSlot()).getMaxStackSize() &&
                 inventory.getStackInSlot(getFullBucketSlot()).getCount() < inventory.getStackInSlot(getFullBucketSlot()).getMaxStackSize()){
             int bucketsToBeFilled = (int)(beanWaste / BlockBeanRecycler.beanWasteMax);
 
@@ -219,33 +198,27 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
         else return false;
     }
 
-    private HashMap<Item, Double[]> getDropBounds(double chanceMultiplier, EnumRecyclerFilterVariants filter){
-        HashMap<Item, Double[]> dropBounds = new HashMap<>();
-
-        Item[] items = dropChances.keySet().toArray(new Item[dropChances.size()]);
-        Double[] chances = dropChances.values().toArray(new Double[dropChances.size()]);
-        for(int i = 0; i < dropChances.size(); i++){
+    private void calculateDropBounds(double chanceMultiplier, EnumRecyclerFilterVariants filter){
+        for(int i = 0; i < recyclerDrops.size(); i++){
             double lastBound = 0;
             if (i > 0)
-                lastBound = dropBounds.get(items[i - 1])[1];
+                lastBound = recyclerDrops.get(i-1).getBounds()[1];
 
             Double[] bounds = new Double[2];
-            if(dropFilters.get(items[i]).contains(filter)) {
+            if(recyclerDrops.get(i).getFilters().contains(filter)) {
                 bounds[0] = lastBound;
-                bounds[1] = lastBound + chances[i] * chanceMultiplier;
+                bounds[1] = lastBound + recyclerDrops.get(i).getChance() * chanceMultiplier;
 
-                dropBounds.put(items[i], bounds);
+                recyclerDrops.get(i).setBounds(bounds);
                 //System.out.println(items[i].getUnlocalizedName() + " [" + bounds[0] + ", " + bounds[1] + "]");
             } else {
                 bounds[0] = lastBound;
                 bounds[1] = lastBound;
 
-                dropBounds.put(items[i], bounds);
+                recyclerDrops.get(i).setBounds(bounds);
                 //System.out.println(items[i].getUnlocalizedName() + " [" + bounds[0] + ", " + bounds[1] + "]");
             }
         }
-
-        return dropBounds;
     }
 
 
@@ -260,14 +233,13 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
         else if(filterStack.getItemDamage() == 2)
             filterMultiplier *= 0.25;
 
-        HashMap<Item, Double[]> dropBounds = getDropBounds(filterMultiplier, EnumRecyclerFilterVariants.byMetadata(filterStack.getMetadata()));
-        Item[] items = dropBounds.keySet().toArray(new Item[dropBounds.size()]);
+        calculateDropBounds(filterMultiplier, EnumRecyclerFilterVariants.byMetadata(filterStack.getMetadata()));
         Random rand = new Random();
         for(int i = 0; i < inputMultiplier; i++){
             Double seed = rand.nextDouble();
-            for(int b = 0; b < dropBounds.size(); b++){
-                if(seed > dropBounds.get(items[b])[0] && seed <= dropBounds.get(items[b])[1])
-                    outputStack.add(new ItemStack(items[b], 1));
+            for(int b = 0; b < recyclerDrops.size(); b++){
+                if(seed > recyclerDrops.get(b).getBounds()[0] && seed <= recyclerDrops.get(b).getBounds()[1])
+                    outputStack.add(recyclerDrops.get(b).getItemStack(1));
             }
         }
         return outputStack;
@@ -278,20 +250,29 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
     }
 
     private boolean hasSpaceFor(ArrayList<ItemStack> items){
-        for(int s = 0; s < items.size(); s++) {
-            ItemStack outputStack = items.get(s);
-            int countInOutputStack = outputStack.getCount();
-            //Iterate through output slots and subtract from the countInOutputStack when we can combine stacks, or place into an empty slot.
-            for (int i = 0; i < outputInventory.getSlots() && countInOutputStack > 0; i++) {
-                ItemStack stackInSlot = inventory.getStackInSlot(i);
-                if (outputStack.getItem().getClass().isInstance(stackInSlot.getItem())){
-                    countInOutputStack -= (stackInSlot.getMaxStackSize() - stackInSlot.getCount());
-                } else if(stackInSlot.isEmpty()){
-                    countInOutputStack -= outputStack.getMaxStackSize();
-                }
+        if(!world.isRemote) {
+//            for (int s = 0; s < items.size(); s++) {
+//                ItemStack outputStack = items.get(s);
+//                //System.out.println("outputting " + outputStack.getUnlocalizedName());
+//                int countInOutputStack = outputStack.getCount();
+//                //Iterate through output slots and subtract from the countInOutputStack when we can combine stacks, or place into an empty slot.
+//                for (int i = 0; i < outputInventory.getSlots() && countInOutputStack > 0; i++) {
+//                    ItemStack stackInSlot = inventory.getStackInSlot(i);
+//                    if(stackInSlot.isEmpty()){
+//                        countInOutputStack -= outputStack.getMaxStackSize();
+//                    }
+//                    else if (outputStack.getItem().getClass().isInstance(stackInSlot.getItem())) {
+//                        countInOutputStack -= (stackInSlot.getMaxStackSize() - stackInSlot.getCount());
+//                    }
+//                }
+//                if (countInOutputStack > 0)
+//                    return false;
+//            }
+            for(int i = 0; i < outputInventory.getSlots(); i++){
+                if(outputInventory.getStackInSlot(i).isEmpty())
+                    return true;
             }
-            if(countInOutputStack > 0)
-                return false;
+            return false;
         }
         return true;
     }
@@ -302,30 +283,30 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
             for (int s = 0; s < outputItems.size(); s++) {
                 ItemStack outputStack = outputItems.get(s);
                 int countInOutputStack = outputStack.getCount();
-                System.out.print(outputStack.getItem().getUnlocalizedName() + "(" + countInOutputStack + "), ");
+                //System.out.print(outputStack.getItem().getUnlocalizedName() + "(" + countInOutputStack + "), ");
                 //Iterate through output slots and subtract from the countInOutputStack when we can combine stacks, or place into an empty slot.
                 for (int i = 0; i < outputInventory.getSlots() && countInOutputStack > 0; i++) {
                     ItemStack stackInSlot = outputInventory.getStackInSlot(i);
                     //If found stack of same type, merge.
                     //System.out.println(outputStack.getItem().getClass() + " |" + stackInSlot.getItem().getClass());
-                    if (outputStack.getUnlocalizedName().equals(stackInSlot.getUnlocalizedName())) {
+                    if (outputStack.getUnlocalizedName().equals(stackInSlot.getUnlocalizedName()) && outputStack.getMetadata() == stackInSlot.getMetadata()) {
                         int spaceInSlotStack = (stackInSlot.getMaxStackSize() - stackInSlot.getCount());
                         //If the whole output stack doesn't fit, merge as much as does fit.
                         if (countInOutputStack > spaceInSlotStack) {
                             //System.out.println("Merging partial output " + s + " into inventory slot " + i + " (" + spaceInSlotStack + " free)");
                             countInOutputStack -= spaceInSlotStack;
-                            outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), stackInSlot.getMaxStackSize()));
+                            outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), stackInSlot.getMaxStackSize(), outputStack.getMetadata()));
                         }
                         //If the whole stack fits, put it all in.
                         else {
                             //System.out.println("Merging whole output " + s + " into inventory slot " + i + " (" + spaceInSlotStack + " free)");
-                            outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack + stackInSlot.getCount()));
+                            outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack + stackInSlot.getCount(), outputStack.getMetadata()));
                             countInOutputStack = 0;
                         }
                         //If found an empty slot, deposit as much of the output stack as fits.
                     } else if (stackInSlot.isEmpty()) {
                         //System.out.println("Putting whole output " + s + " into empty inventory slot " + i + " (" + outputStack.getMaxStackSize() + " free)");
-                        outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack));
+                        outputInventory.setStackInSlot(i, new ItemStack(outputStack.getItem(), countInOutputStack, outputStack.getMetadata()));
                         countInOutputStack -= outputStack.getMaxStackSize();
                     }
                 }
@@ -372,13 +353,34 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
 
     public static void tryAddForeignModItem(String oreDictionary, double chance, ArrayList<EnumRecyclerFilterVariants> filters){
         NonNullList<ItemStack> references = OreDictionary.getOres(oreDictionary);
+
         if(references.size() > 0)
-            addDropChance(references.get(0).getItem(), chance, filters);
+            addDropChance(references.get(0).getItem(), references.get(0).getMetadata(), chance, filters);
     }
 
-    public static void addDropChance(Item item, double chance, ArrayList<EnumRecyclerFilterVariants> filters){
-        dropChances.put(item, chance);
-        dropFilters.put(item, filters);
+    public static void tryAddAllForeignModItems(String oreDictionary, double chance, ArrayList<EnumRecyclerFilterVariants> filters){
+        NonNullList<ItemStack> references = OreDictionary.getOres(oreDictionary);
+
+        boolean breakout = false;
+        for(int i = 0; i < references.size(); i++) {
+            int size = references.size();
+            if(references.get(i).getMetadata() == OreDictionary.WILDCARD_VALUE){
+                    //WHY DOES THIS WORK
+                    //I HAVE NO CLUE HOW THIS WORKS
+                    //WHAT IS HAPPENING AND WHY IS IT CORRECT
+                    NonNullList<ItemStack> subtypes = OreDictionary.getOres(oreDictionary);
+                    references.get(i).getItem().getSubItems(references.get(i).getItem().getCreativeTab(), subtypes);
+            } else {
+                System.out.println("Adding drop chance for " + references.get(i).getDisplayName() + "(m: " + references.get(i).getMetadata() + ") [" + oreDictionary + "]");
+                addDropChance(references.get(i).getItem(), references.get(i).getMetadata(), chance/((double)references.size()), filters);
+            }
+        }
+    }
+
+
+    public static void addDropChance(Item item, int metadata, double chance, ArrayList<EnumRecyclerFilterVariants> filters){
+        System.out.println("Adding drop chance for " + item.getUnlocalizedName() + "(m: " + metadata + ")");
+        recyclerDrops.add(new RecyclerDrop(item, metadata, chance, filters));
     }
 
     public void filterChanged(){

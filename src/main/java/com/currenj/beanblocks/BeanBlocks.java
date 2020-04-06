@@ -1,6 +1,7 @@
 package com.currenj.beanblocks;
 
 import com.currenj.beanblocks.block.ModBlocks;
+import com.currenj.beanblocks.block.beanhydrator.TileEntityBeanHydrator;
 import com.currenj.beanblocks.block.beanrecycler.TileEntityBeanRecycler;
 import com.currenj.beanblocks.entity.EntityBean;
 import com.currenj.beanblocks.entity.ModEntities;
@@ -77,12 +78,17 @@ public class BeanBlocks {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        TileEntityBeanRecycler.tryAddForeignModItem("ingotCopper", 0.03, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
-        TileEntityBeanRecycler.tryAddForeignModItem("ingotTin", 0.03, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
-        TileEntityBeanRecycler.tryAddForeignModItem("ingotAluminum", 0.03, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
-        TileEntityBeanRecycler.tryAddForeignModItem("ingotLead", 0.02, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
-        TileEntityBeanRecycler.tryAddForeignModItem("ingotSilver", 0.02, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
+        //Foreign metals.
+        TileEntityBeanRecycler.tryAddForeignModItem("nuggetCopper", 0.15, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
+        TileEntityBeanRecycler.tryAddForeignModItem("nuggetTin", 0.15, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
+        TileEntityBeanRecycler.tryAddForeignModItem("nuggetAluminum", 0.10, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
+        TileEntityBeanRecycler.tryAddForeignModItem("nuggetLead", 0.08, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
+        TileEntityBeanRecycler.tryAddForeignModItem("nuggetSilver", 0.10, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.GEMFILTER); add(EnumRecyclerFilterVariants.METALFILTER); }});
 
+        //Vanilla and foreign treees.
+        TileEntityBeanRecycler.tryAddAllForeignModItems("plankWood", 0.05, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.ORGANICFILTER); }});
+        TileEntityBeanRecycler.tryAddAllForeignModItems("logWood", 0.05, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.ORGANICFILTER); }});
+        TileEntityBeanRecycler.tryAddAllForeignModItems("treeLeaves", 0.05, new ArrayList<EnumRecyclerFilterVariants>() {{ add(EnumRecyclerFilterVariants.ORGANICFILTER); }});
     }
 
     @Mod.EventBusSubscriber

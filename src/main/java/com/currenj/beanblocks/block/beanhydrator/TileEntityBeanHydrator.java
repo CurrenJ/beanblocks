@@ -118,7 +118,7 @@ public class TileEntityBeanHydrator extends TileEntity implements ITickable {
         }
 
         if(canHydrate(inputStack, bucketStack, outputStack)){
-            if(hydrateTime <= 0 && waterLevel >= 1000){
+            if(hydrateTime <= 0){
                     hydrateTime = 100;
                     ItemStack[] newSlots = hydrateBean(inputStack, bucketStack, outputStack);
                     if(!world.isRemote) {
@@ -157,7 +157,7 @@ public class TileEntityBeanHydrator extends TileEntity implements ITickable {
     }
 
     public boolean canHydrate(ItemStack input, ItemStack filter, ItemStack currentOutputStack){
-        return canHydrate("fossilized_beans", input, filter, currentOutputStack);
+        return canHydrate("fossilized_beans", input, filter, currentOutputStack) && waterLevel >= 1000;
     }
 
     public boolean canHydrate(String unlocalizedNameOutput, ItemStack input, ItemStack filter, ItemStack currentOutputStack){

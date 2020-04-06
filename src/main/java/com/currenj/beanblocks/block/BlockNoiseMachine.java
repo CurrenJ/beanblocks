@@ -42,7 +42,7 @@ public class BlockNoiseMachine extends BlockBase {
             {
                 System.out.println("Powered!");
                 System.out.println("Playing sound at [" + pos.getX() + ", " +pos.getY() + ", " + pos.getZ() + "]");
-                worldIn.playSound(worldIn.getClosestPlayer((float)pos.getX(), (float)pos.getY(), (float)pos.getZ(), 100, true), pos, BeanBlocksSoundHandler.HARRY_NOISE, SoundCategory.MUSIC, 1.0f, 1.0f);
+                worldIn.playSound(worldIn.getClosestPlayer((float)pos.getX(), (float)pos.getY(), (float)pos.getZ(), 100, true), pos, BeanBlocksSoundHandler.HARRY_NOISE, SoundCategory.MUSIC, 0.5f, 1.0f);
             }
     }
 }
