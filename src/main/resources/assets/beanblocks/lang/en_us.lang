@@ -14,6 +14,7 @@ item.bean_chestplate.name=Bean Chestplate
 item.bean_leggings.name=Bean Leggings
 item.bean_boots.name=Bean Boots
 item.fossilized_beans.name=Fossilized Beans
+item.bean_brand.name=Bean Brand
 
 
 # Blocks
@@ -29,3 +30,4 @@ tile.bean_hydrator.name=Bean Hydrator
 
 # Entity
 entity.Bean.name=Living Bean
+entity.Work Bean.name=Work Bean

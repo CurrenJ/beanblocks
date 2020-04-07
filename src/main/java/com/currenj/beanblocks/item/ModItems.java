@@ -1,6 +1,7 @@
 package com.currenj.beanblocks.item;
 
 import com.currenj.beanblocks.BeanBlocks;
+import com.currenj.beanblocks.block.ItemBeanBrandingTool;
 import com.currenj.beanblocks.block.ModBlocks;
 import com.currenj.beanblocks.item.filter.press.ItemPressFilter;
 import com.currenj.beanblocks.item.filter.recycler.ItemRecyclerFilter;
@@ -16,6 +17,7 @@ public class ModItems {
     public static ItemDenseBeanBar denseBeanBar = new ItemDenseBeanBar("dense_bean_bar");
     public static ItemRecyclerFilter recyclerFilter = new ItemRecyclerFilter("recycler_filter");
     public static ItemFossilizedBeans itemFossilizedBeans = new ItemFossilizedBeans("fossilized_beans");
+    public static ItemBeanBrandingTool itemBeanBrandingTool = new ItemBeanBrandingTool("bean_brand");
 
     public static ItemArmor beanHelmet = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.HEAD, "bean_helmet");
     public static ItemArmor beanChestplate = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.CHEST, "bean_chestplate");
@@ -33,7 +35,8 @@ public class ModItems {
                 beanChestplate,
                 beanLeggings,
                 beanBoots,
-                itemFossilizedBeans
+                itemFossilizedBeans,
+                itemBeanBrandingTool
         );
     }
 
@@ -44,6 +47,7 @@ public class ModItems {
         denseBeanBar.registerItemModel();
         recyclerFilter.registerItemModels();
         itemFossilizedBeans.registerItemModel();
+        itemBeanBrandingTool.registerItemModel();
 
         beanHelmet.registerItemModel();
         beanChestplate.registerItemModel();

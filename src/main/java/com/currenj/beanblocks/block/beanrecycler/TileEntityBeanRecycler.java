@@ -158,7 +158,6 @@ public class TileEntityBeanRecycler extends TileEntity implements ITickable {
                         recycleTime = getMaxRecycleTime();
                         beanWaste += getBeanWasteValue(inputStack);
                         finishRecycle(outputItems, inputStack, filterStack);
-                        System.out.println("Finished recycle. [" + toString() + "]");
                         setBlockToUpdate();
                     } else {
                         jammed = true;

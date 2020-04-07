@@ -2,6 +2,7 @@ package com.currenj.beanblocks.entity;
 
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.item.ItemBeanPinto;
+import com.currenj.beanblocks.item.ModItems;
 import com.google.common.base.Predicate;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
@@ -16,34 +17,23 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityBean extends EntityAnimal
+public abstract class EntityBeanBase extends EntityAnimal
 {
     private int warningSoundTicks;
     public static final ResourceLocation LOOT = new ResourceLocation(BeanBlocks.modId, "livingbean");
+    protected ResourceLocation beanTexture;
 
-    public EntityBean(World worldIn)
+    public EntityBeanBase(World worldIn)
     {
         super(worldIn);
         this.setSize(0.8F, 0.4F);
-    }
-
-    public EntityAgeable createChild(EntityAgeable ageable)
-    {
-        return new EntityBean(this.world);
     }
 
     /**
@@ -55,19 +45,27 @@ public class EntityBean extends EntityAnimal
         return stack.getItem() instanceof ItemBeanPinto;
     }
 
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        beanTexture = this.getTexture();
+    }
+
+    @Override
     protected void initEntityAI()
     {
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityBean.AIMeleeAttack());
-        this.tasks.addTask(1, new EntityBean.AIPanic());
+        this.tasks.addTask(1, new EntityBeanBase.AIMeleeAttack());
+        this.tasks.addTask(1, new EntityBeanBase.AIPanic());
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
+        this.tasks.addTask(3, new EntityAITempt(this, 1.25D, ModItems.pintoBean, false));
         this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityBean.AIHurtByTarget());
-        this.targetTasks.addTask(2, new EntityBean.AIAttackPlayer());
+        this.targetTasks.addTask(1, new EntityBeanBase.AIHurtByTarget());
+        this.targetTasks.addTask(2, new EntityBeanBase.AIAttackPlayer());
     }
 
     protected void applyEntityAttributes()
@@ -115,11 +113,6 @@ public class EntityBean extends EntityAnimal
         return LOOT;
     }
 
-    protected void entityInit()
-    {
-        super.entityInit();
-    }
-
     /**
      * Called to update the entity's position/logic.
      */
@@ -156,16 +149,16 @@ public class EntityBean extends EntityAnimal
      */
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
-        if (livingdata instanceof EntityBean.GroupData)
+        if (livingdata instanceof EntityBeanBase.GroupData)
         {
-            if (((EntityBean.GroupData)livingdata).madeParent)
+            if (((EntityBeanBase.GroupData)livingdata).madeParent)
             {
                 this.setGrowingAge(-24000);
             }
         }
         else
         {
-            EntityBean.GroupData EntityBean$groupdata = new EntityBean.GroupData();
+            EntityBeanBase.GroupData EntityBean$groupdata = new EntityBeanBase.GroupData();
             EntityBean$groupdata.madeParent = true;
             livingdata = EntityBean$groupdata;
         }
@@ -177,7 +170,7 @@ public class EntityBean extends EntityAnimal
     {
         public AIAttackPlayer()
         {
-            super(EntityBean.this, EntityPlayer.class, 20, true, true, (Predicate)null);
+            super(EntityBeanBase.this, EntityPlayer.class, 20, true, true, (Predicate)null);
         }
 
         /**
@@ -185,7 +178,7 @@ public class EntityBean extends EntityAnimal
          */
         public boolean shouldExecute()
         {
-            if (EntityBean.this.isChild())
+            if (EntityBeanBase.this.isChild())
             {
                 return false;
             }
@@ -210,7 +203,7 @@ public class EntityBean extends EntityAnimal
                     return true;
 
 
-                EntityBean.this.setAttackTarget((EntityLivingBase)null);
+                EntityBeanBase.this.setAttackTarget((EntityLivingBase)null);
                 return false;
             }
         }
@@ -225,7 +218,7 @@ public class EntityBean extends EntityAnimal
     {
         public AIHurtByTarget()
         {
-            super(EntityBean.this, false);
+            super(EntityBeanBase.this, false);
         }
 
         /**
@@ -235,7 +228,7 @@ public class EntityBean extends EntityAnimal
         {
             super.startExecuting();
 
-            if (EntityBean.this.isChild())
+            if (EntityBeanBase.this.isChild())
             {
                 this.alertOthers();
                 this.resetTask();
@@ -244,7 +237,7 @@ public class EntityBean extends EntityAnimal
 
         protected void setEntityAttackTarget(EntityCreature creatureIn, EntityLivingBase entityLivingBaseIn)
         {
-            if (creatureIn instanceof EntityBean && !creatureIn.isChild())
+            if (creatureIn instanceof EntityBeanBase && !creatureIn.isChild())
             {
                 super.setEntityAttackTarget(creatureIn, entityLivingBaseIn);
             }
@@ -255,7 +248,7 @@ public class EntityBean extends EntityAnimal
     {
         public AIMeleeAttack()
         {
-            super(EntityBean.this, 1.25D, true);
+            super(EntityBeanBase.this, 1.25D, true);
         }
 
         protected void checkAndPerformAttack(EntityLivingBase p_190102_1_, double p_190102_2_)
@@ -276,7 +269,7 @@ public class EntityBean extends EntityAnimal
 
                 if (this.attackTick <= 10)
                 {
-                    EntityBean.this.playWarningSound();
+                    EntityBeanBase.this.playWarningSound();
                 }
             }
             else
@@ -303,7 +296,7 @@ public class EntityBean extends EntityAnimal
     {
         public AIPanic()
         {
-            super(EntityBean.this, 2.0D);
+            super(EntityBeanBase.this, 2.0D);
         }
 
         /**
@@ -311,7 +304,7 @@ public class EntityBean extends EntityAnimal
          */
         public boolean shouldExecute()
         {
-            return !EntityBean.this.isChild() && !EntityBean.this.isBurning() ? false : super.shouldExecute();
+            return !EntityBeanBase.this.isChild() && !EntityBeanBase.this.isBurning() ? false : super.shouldExecute();
         }
     }
 
@@ -323,4 +316,10 @@ public class EntityBean extends EntityAnimal
         {
         }
     }
+
+    public static ResourceLocation makeTexture(final String MODID, final String TEXTURE) {
+        return new ResourceLocation(MODID + ":textures/entity/" + TEXTURE + ".png");
+    }
+
+    protected abstract ResourceLocation getTexture();
 }

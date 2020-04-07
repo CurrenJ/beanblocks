@@ -58,7 +58,6 @@ public class RecyclerDrop {
     public ItemStack getItemStack(int count){
         if(itemStack == null) {
             int metadata = metadataList.get((new Random()).nextInt(metadataList.size()));
-            System.out.println(item.getUnlocalizedName() + " metadata " + metadata);
             return new ItemStack(item, count, metadata);
         } else return itemStack;
     }

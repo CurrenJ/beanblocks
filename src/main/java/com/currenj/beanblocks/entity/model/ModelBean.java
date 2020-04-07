@@ -1,9 +1,7 @@
 package com.currenj.beanblocks.entity.model;
 
-import com.currenj.beanblocks.entity.EntityBean;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
-import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
