@@ -3,6 +3,7 @@ package com.currenj.beanblocks.block;
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.block.beanbucket.BlockBeanBucket;
 import com.currenj.beanblocks.block.beanbucket.BlockBeanBucketFull;
+import com.currenj.beanblocks.block.beanhole.BlockBeanHole;
 import com.currenj.beanblocks.block.beanhydrator.BlockBeanHydrator;
 import com.currenj.beanblocks.block.beanpress.BlockBeanPress;
 import com.currenj.beanblocks.block.beanrecycler.BlockBeanRecycler;
@@ -31,6 +32,8 @@ public class ModBlocks {
     public static BlockNoiseMachine blockNoiseMachine = new BlockNoiseMachine(Material.ROCK, "noise_machine", CreativeTabs.BUILDING_BLOCKS);
     public static BlockBeanHydrator blockBeanHydrator = new BlockBeanHydrator();
     public static BlockAncientBeans blockAncientBeans = new BlockAncientBeans(Material.ROCK, "ancient_beans");
+    public static BlockBeanHole blockBeanHole = new BlockBeanHole();
+    public static BlockHoleDigger blockHoleDigger = new BlockHoleDigger(Material.ROCK, "hole_digger");
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -44,13 +47,16 @@ public class ModBlocks {
                 blockBeanRecycler,
                 blockNoiseMachine,
                 blockBeanHydrator,
-                blockAncientBeans
+                blockAncientBeans,
+                blockBeanHole,
+                blockHoleDigger
         );
 
         registerTileEntity(blockBeanPress.getTileEntityClass(), "bean_press");
         registerTileEntity(blockBeanRecycler.getTileEntityClass(), "bean_recycler");
         registerTileEntity(blockBeanBucketFull.getTileEntityClass(), "bean_bucket_full");
         registerTileEntity(blockBeanHydrator.getTileEntityClass(), "bean_hydrator");
+        registerTileEntity(blockBeanHole.getTileEntityClass(), "bean_hole");
     }
 
     private static void registerTileEntity(@Nonnull final Class<? extends TileEntity> clazz, @Nonnull final String name) {
@@ -68,7 +74,9 @@ public class ModBlocks {
                 blockBeanRecycler.createItemBlock(),
                 blockNoiseMachine.createItemBlock(),
                 blockBeanHydrator.createItemBlock(),
-                blockAncientBeans.createItemBlock()
+                blockAncientBeans.createItemBlock(),
+                blockBeanHole.createItemBlock(),
+                blockHoleDigger.createItemBlock()
         );
     }
 
@@ -83,6 +91,8 @@ public class ModBlocks {
         blockNoiseMachine.registerItemModel(Item.getItemFromBlock(blockNoiseMachine));
         blockBeanHydrator.registerItemModel(Item.getItemFromBlock(blockBeanHydrator));
         blockAncientBeans.registerItemModel(Item.getItemFromBlock(blockAncientBeans));
+        blockBeanHole.registerItemModel(Item.getItemFromBlock(blockBeanHole));
+        blockHoleDigger.registerItemModel(Item.getItemFromBlock(blockHoleDigger));
     }
 
 }

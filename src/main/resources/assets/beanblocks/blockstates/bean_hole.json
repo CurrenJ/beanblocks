@@ -1,0 +1,26 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"side": "blocks/dirt",
+			"end": "beanblocks:blocks/dirt_hole"
+		},
+		"model": "cube_column"
+	},
+	"variants": {
+		"normal": [{
+			"textures": {
+				"side": "blocks/dirt",
+				"end": "beanblocks:blocks/dirt_hole"
+			},
+			"model": "cube_column"
+		}],
+		"inventory": [{
+			"textures": {
+				"side": "blocks/dirt",
+				"end": "beanblocks:blocks/dirt_hole"
+			},
+			"model": "cube_column"
+		}]
+	}
+}

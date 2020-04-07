@@ -1,5 +1,8 @@
 package com.currenj.beanblocks;
 
+import com.currenj.beanblocks.block.beanhole.BeanHoleContainer;
+import com.currenj.beanblocks.block.beanhole.GUIBeanHole;
+import com.currenj.beanblocks.block.beanhole.TileEntityBeanHole;
 import com.currenj.beanblocks.block.beanhydrator.BeanHydratorContainer;
 import com.currenj.beanblocks.block.beanhydrator.GUIBeanHydrator;
 import com.currenj.beanblocks.block.beanhydrator.TileEntityBeanHydrator;
@@ -19,6 +22,7 @@ public class ModGuiHandler implements IGuiHandler {
     public static final int BEAN_PRESS = 0;
     public static final int BEAN_RECYCLER = 1;
     public static final int BEAN_HYDRATOR = 2;
+    public static final int BEAN_HOLE = 3;
 
     @Override
     public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -29,6 +33,8 @@ public class ModGuiHandler implements IGuiHandler {
                 return new BeanRecyclerContainer(player.inventory, (TileEntityBeanRecycler) world.getTileEntity(new BlockPos(x, y, z)));
             case BEAN_HYDRATOR:
                 return new BeanHydratorContainer(player.inventory, (TileEntityBeanHydrator) world.getTileEntity(new BlockPos(x, y, z)));
+            case BEAN_HOLE:
+                return new BeanHoleContainer(player.inventory, (TileEntityBeanHole) world.getTileEntity(new BlockPos(x, y, z)));
             default:
                 return null;
         }
@@ -43,6 +49,8 @@ public class ModGuiHandler implements IGuiHandler {
                 return new GUIBeanRecycler(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
             case BEAN_HYDRATOR:
                 return new GUIBeanHydrator(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
+            case BEAN_HOLE:
+                return new GUIBeanHole(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
             default:
                 return null;
         }

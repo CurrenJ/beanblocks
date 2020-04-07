@@ -1,0 +1,12 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"normal": {
+			"model": "beanblocks:hole_digger"
+		},
+		"inventory": {
+			"model": "beanblocks:hole_digger",
+			"transform": "forge:default-block"
+		}
+	}
+}

@@ -1,6 +1,7 @@
 package com.currenj.beanblocks.entity;
 
 import com.currenj.beanblocks.BeanBlocks;
+import com.currenj.beanblocks.block.beanhole.EntityAIDepositInBeanHole;
 import com.currenj.beanblocks.item.ItemBeanPinto;
 import com.currenj.beanblocks.item.ModItems;
 import net.minecraft.entity.EntityAgeable;
@@ -62,7 +63,8 @@ public class EntityWorkBean extends EntityBeanBase {
     protected void initEntityAI()
     {
         super.initEntityAI();
-        this.tasks.addTask(3, new EntityAIHarvestBeans(this, 1.0D));
+        this.tasks.addTask(3, new EntityAIHarvestBeans(this, 1.0D, true));
+        this.tasks.addTask(4, new EntityAIDepositInBeanHole(this, 1.25D));
     }
 
     private boolean canWorkBeanPickupItem(Item itemIn)

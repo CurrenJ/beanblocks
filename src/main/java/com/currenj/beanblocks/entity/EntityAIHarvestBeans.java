@@ -17,8 +17,8 @@ public class EntityAIHarvestBeans extends EntityAIMoveToBlock {
     /**
      * Villager that is harvesting
      */
-    private final EntityBeanBase wildBeanIn;
-    private final EntityWorkBean workBean;
+    private final EntityBeanBase bean;
+    private boolean plantAndCollect;
     private boolean hasFarmItem;
     private boolean wantsToReapStuff;
     /**
@@ -26,18 +26,10 @@ public class EntityAIHarvestBeans extends EntityAIMoveToBlock {
      */
     private int currentTask;
 
-    public EntityAIHarvestBeans(EntityWildBean wildBeanIn, double speedIn) {
-        super(wildBeanIn, speedIn, 16);
-        this.wildBeanIn = wildBeanIn;
-        this.workBean = null;
-        System.out.println("Bean init.");
-    }
-
-    public EntityAIHarvestBeans(EntityWorkBean workBeanIn, double speedIn) {
-        super(workBeanIn, speedIn, 16);
-        this.workBean = workBeanIn;
-        this.wildBeanIn = null;
-        System.out.println("Work bean init.");
+    public EntityAIHarvestBeans(EntityBeanBase beanIn, double speedIn, boolean plantAndCollect) {
+        super(beanIn, speedIn, 16);
+        this.bean = beanIn;
+        this.plantAndCollect = plantAndCollect;
     }
 
     /**
@@ -45,14 +37,13 @@ public class EntityAIHarvestBeans extends EntityAIMoveToBlock {
      */
     public boolean shouldExecute() {
         if (this.runDelay <= 0) {
-            EntityBeanBase bean = (workBean == null) ? wildBeanIn : workBean;
             if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(bean.world, bean)) {
                 return false;
             }
 
             this.currentTask = -1;
-            if(workBean != null)
-                this.hasFarmItem = workBean.isFarmItemInInventory();
+            if(plantAndCollect)
+                this.hasFarmItem = ((EntityWorkBean)bean).isFarmItemInInventory();
             else this.hasFarmItem = false;
             this.wantsToReapStuff = true; //this.villager.wantsMoreFood();
         }
@@ -72,25 +63,25 @@ public class EntityAIHarvestBeans extends EntityAIMoveToBlock {
      */
     public void updateTask() {
         super.updateTask();
-        this.wildBeanIn.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double) (this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.wildBeanIn.getVerticalFaceSpeed());
+        bean.getLookHelper().setLookPosition((double) bean.getPosition().getX() + 0.5D, (double) (this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) bean.getVerticalFaceSpeed());
 
         if (this.getIsAboveDestination()) {
-            World world = this.wildBeanIn.world;
+            World world = bean.world;
             BlockPos blockpos = this.destinationBlock.up();
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
-            if (workBean != null) {
-                System.out.println("Work bean! [" + workBean.getPosition().toString() + "]");
+            if (plantAndCollect) {
+                System.out.println("Work bean! [" + bean.getPosition().toString() + "]");
             }
 
             if (this.currentTask == 0 && block instanceof BlockCropPinto && ((BlockCropPinto) block).isMaxAge(iblockstate)) {
                 world.destroyBlock(blockpos, true);
             } else if (this.currentTask == 1 && iblockstate.getMaterial() == Material.AIR) {
                 //BEAN NEEDS INVENTORY FOR THIS TO BE ENABLED
-                if (workBean != null) {
-                    System.out.println("Work bean! [" + workBean.getPosition().toString() + "]");
-                    ItemStackHandler inventory = workBean.getWorkBeanInventory();
+                if (plantAndCollect) {
+                    System.out.println("Work bean! [" + bean.getPosition().toString() + "]");
+                    ItemStackHandler inventory = ((EntityWorkBean)bean).getWorkBeanInventory();
 
                     for (int i = 0; i < inventory.getSlots(); ++i) {
                         ItemStack itemstack = inventory.getStackInSlot(i);
