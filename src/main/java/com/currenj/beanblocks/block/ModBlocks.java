@@ -34,6 +34,7 @@ public class ModBlocks {
     public static BlockAncientBeans blockAncientBeans = new BlockAncientBeans(Material.ROCK, "ancient_beans");
     public static BlockBeanHole blockBeanHole = new BlockBeanHole();
     public static BlockHoleDigger blockHoleDigger = new BlockHoleDigger(Material.ROCK, "hole_digger");
+    public static BlockBeanVibesMachine blockBeanVibesMachine = new BlockBeanVibesMachine(Material.ROCK, "vibes_machine");
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -49,7 +50,8 @@ public class ModBlocks {
                 blockBeanHydrator,
                 blockAncientBeans,
                 blockBeanHole,
-                blockHoleDigger
+                blockHoleDigger,
+                blockBeanVibesMachine
         );
 
         registerTileEntity(blockBeanPress.getTileEntityClass(), "bean_press");
@@ -76,7 +78,8 @@ public class ModBlocks {
                 blockBeanHydrator.createItemBlock(),
                 blockAncientBeans.createItemBlock(),
                 blockBeanHole.createItemBlock(),
-                blockHoleDigger.createItemBlock()
+                blockHoleDigger.createItemBlock(),
+                blockBeanVibesMachine.createItemBlock()
         );
     }
 
@@ -93,6 +96,7 @@ public class ModBlocks {
         blockAncientBeans.registerItemModel(Item.getItemFromBlock(blockAncientBeans));
         blockBeanHole.registerItemModel(Item.getItemFromBlock(blockBeanHole));
         blockHoleDigger.registerItemModel(Item.getItemFromBlock(blockHoleDigger));
+        blockBeanVibesMachine.registerItemModel(Item.getItemFromBlock(blockBeanVibesMachine));
     }
 
 }

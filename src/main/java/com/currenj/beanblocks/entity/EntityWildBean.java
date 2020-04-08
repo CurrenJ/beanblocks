@@ -1,7 +1,7 @@
 package com.currenj.beanblocks.entity;
 
 import com.currenj.beanblocks.BeanBlocks;
-import com.currenj.beanblocks.block.ItemBeanBrandingTool;
+import com.currenj.beanblocks.item.ItemBeanBrandingTool;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

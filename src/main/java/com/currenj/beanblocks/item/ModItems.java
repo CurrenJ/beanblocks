@@ -1,7 +1,6 @@
 package com.currenj.beanblocks.item;
 
 import com.currenj.beanblocks.BeanBlocks;
-import com.currenj.beanblocks.block.ItemBeanBrandingTool;
 import com.currenj.beanblocks.block.ModBlocks;
 import com.currenj.beanblocks.item.filter.press.ItemPressFilter;
 import com.currenj.beanblocks.item.filter.recycler.ItemRecyclerFilter;

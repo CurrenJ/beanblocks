@@ -1,4 +1,4 @@
-package com.currenj.beanblocks.block;
+package com.currenj.beanblocks.item;
 
 import com.currenj.beanblocks.item.ItemBase;
 import net.minecraft.creativetab.CreativeTabs;

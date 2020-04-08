@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"BBB",
+		"BDB",
+		"BBB"
+	],
+	"key": {
+		"B": {
+			"item": "beanblocks:bean_block_polished"
+		},
+		"D": {
+			"item": "minecraft:diamond_block"
+		}
+	},
+	"result": {
+		"item": "beanblocks:hole_digger"
+	}
+}
