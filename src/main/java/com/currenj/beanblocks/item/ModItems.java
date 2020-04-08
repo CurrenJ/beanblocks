@@ -16,7 +16,9 @@ public class ModItems {
     public static ItemDenseBeanBar denseBeanBar = new ItemDenseBeanBar("dense_bean_bar");
     public static ItemRecyclerFilter recyclerFilter = new ItemRecyclerFilter("recycler_filter");
     public static ItemFossilizedBeans itemFossilizedBeans = new ItemFossilizedBeans("fossilized_beans");
-    public static ItemBeanBrandingTool itemBeanBrandingTool = new ItemBeanBrandingTool("bean_brand");
+    public static ItemBeanBrandingToolHeated itemBeanBrandingToolHeated = new ItemBeanBrandingToolHeated("bean_brand_hot");
+    public static ItemBeanBrandingToolCool itemBeanBrandingToolCool = new ItemBeanBrandingToolCool("bean_brand_cool");
+    public static ItemGlowbeanDust itemGlowbeanDust = new ItemGlowbeanDust("glowbean_dust");
 
     public static ItemArmor beanHelmet = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.HEAD, "bean_helmet");
     public static ItemArmor beanChestplate = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.CHEST, "bean_chestplate");
@@ -35,7 +37,9 @@ public class ModItems {
                 beanLeggings,
                 beanBoots,
                 itemFossilizedBeans,
-                itemBeanBrandingTool
+                itemBeanBrandingToolHeated,
+                itemBeanBrandingToolCool,
+                itemGlowbeanDust
         );
     }
 
@@ -46,7 +50,9 @@ public class ModItems {
         denseBeanBar.registerItemModel();
         recyclerFilter.registerItemModels();
         itemFossilizedBeans.registerItemModel();
-        itemBeanBrandingTool.registerItemModel();
+        itemBeanBrandingToolHeated.registerItemModel();
+        itemBeanBrandingToolCool.registerItemModel();
+        itemGlowbeanDust.registerItemModel();
 
         beanHelmet.registerItemModel();
         beanChestplate.registerItemModel();

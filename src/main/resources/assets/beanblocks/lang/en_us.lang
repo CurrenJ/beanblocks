@@ -14,7 +14,9 @@ item.bean_chestplate.name=Bean Chestplate
 item.bean_leggings.name=Bean Leggings
 item.bean_boots.name=Bean Boots
 item.fossilized_beans.name=Fossilized Beans
-item.bean_brand.name=Bean Brand
+item.bean_brand_hot.name=Bean Brand (Hot)
+item.bean_brand_cool.name=Bean Brand
+item.glowbean_dust.name=Glowbean Dust
 
 # Blocks
 tile.bean_block.name=Block of Beans
@@ -29,6 +31,7 @@ tile.bean_hydrator.name=Bean Hydrator
 tile.bean_hole.name=Bean Hole
 tile.hole_digger.name=Hole Digger
 tile.vibes_machine.name=Vibes Machine
+tile.glowbean.name=Glowbean
 
 # Entity
 entity.Bean.name=Living Bean

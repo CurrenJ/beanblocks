@@ -1,7 +1,7 @@
 package com.currenj.beanblocks.entity;
 
 import com.currenj.beanblocks.BeanBlocks;
-import com.currenj.beanblocks.item.ItemBeanBrandingTool;
+import com.currenj.beanblocks.item.ItemBeanBrandingToolHeated;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -43,7 +43,7 @@ public class EntityWildBean extends EntityBeanBase {
                 return true;
             }
 
-            if(itemstack.getItem() instanceof ItemBeanBrandingTool){
+            if(itemstack.getItem() instanceof ItemBeanBrandingToolHeated){
                 if(!world.isRemote) {
                     EntityWorkBean newWorkBean = new EntityWorkBean(world);
                     newWorkBean.setPositionAndRotation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);

@@ -9,6 +9,7 @@ public class ModRecipes {
 
     public static void init() {
         GameRegistry.addSmelting(ModBlocks.beanBlock, new ItemStack(ModItems.pintoBean, 9), 0.7f);
+        GameRegistry.addSmelting(ModItems.itemBeanBrandingToolCool, new ItemStack(ModItems.itemBeanBrandingToolHeated, 1), 0.7f);
 
         ModItems.pintoBean.initOreDict();
     }
