@@ -1,12 +1,14 @@
 package com.currenj.beanblocks.block;
 
 import com.currenj.beanblocks.BeanBlocks;
+import com.currenj.beanblocks.block.basicgenerator.BlockBasicGenerator;
 import com.currenj.beanblocks.block.beanbucket.BlockBeanBucket;
 import com.currenj.beanblocks.block.beanbucket.BlockBeanBucketFull;
 import com.currenj.beanblocks.block.beanhole.BlockBeanHole;
 import com.currenj.beanblocks.block.beanhydrator.BlockBeanHydrator;
 import com.currenj.beanblocks.block.beanpress.BlockBeanPress;
 import com.currenj.beanblocks.block.beanrecycler.BlockBeanRecycler;
+import com.currenj.beanblocks.block.brandassembler.BlockBrandAssembler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -36,6 +38,8 @@ public class ModBlocks {
     public static BlockHoleDigger blockHoleDigger = new BlockHoleDigger(Material.ROCK, "hole_digger");
     public static BlockBeanVibesMachine blockBeanVibesMachine = new BlockBeanVibesMachine(Material.ROCK, "vibes_machine");
     public static BlockGlowbean blockGlowbean = new BlockGlowbean(Material.GLASS, "glowbean");
+    public static BlockBrandAssembler blockBrandAssembler = new BlockBrandAssembler();
+    public static BlockBasicGenerator blockBasicGenerator = new BlockBasicGenerator();
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -53,7 +57,9 @@ public class ModBlocks {
                 blockBeanHole,
                 blockHoleDigger,
                 blockBeanVibesMachine,
-                blockGlowbean
+                blockGlowbean,
+                blockBrandAssembler,
+                blockBasicGenerator
         );
 
         registerTileEntity(blockBeanPress.getTileEntityClass(), "bean_press");
@@ -61,6 +67,8 @@ public class ModBlocks {
         registerTileEntity(blockBeanBucketFull.getTileEntityClass(), "bean_bucket_full");
         registerTileEntity(blockBeanHydrator.getTileEntityClass(), "bean_hydrator");
         registerTileEntity(blockBeanHole.getTileEntityClass(), "bean_hole");
+        registerTileEntity(blockBrandAssembler.getTileEntityClass(), "brand_assembler");
+        registerTileEntity(blockBasicGenerator.getTileEntityClass(), "basic_generator");
     }
 
     private static void registerTileEntity(@Nonnull final Class<? extends TileEntity> clazz, @Nonnull final String name) {
@@ -82,7 +90,9 @@ public class ModBlocks {
                 blockBeanHole.createItemBlock(),
                 blockHoleDigger.createItemBlock(),
                 blockBeanVibesMachine.createItemBlock(),
-                blockGlowbean.createItemBlock()
+                blockGlowbean.createItemBlock(),
+                blockBrandAssembler.createItemBlock(),
+                blockBasicGenerator.createItemBlock()
         );
     }
 
@@ -101,6 +111,8 @@ public class ModBlocks {
         blockHoleDigger.registerItemModel(Item.getItemFromBlock(blockHoleDigger));
         blockBeanVibesMachine.registerItemModel(Item.getItemFromBlock(blockBeanVibesMachine));
         blockGlowbean.registerItemModel(Item.getItemFromBlock(blockGlowbean));
+        blockBrandAssembler.registerItemModel(Item.getItemFromBlock(blockBrandAssembler));
+        blockBasicGenerator.registerItemModel(Item.getItemFromBlock(blockBasicGenerator));
     }
 
 }

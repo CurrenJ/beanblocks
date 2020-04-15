@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class ItemBeanBrandingToolCool extends ItemBase {
 
-    private double heatedTime;
+    private long heatedTime;
 
     public ItemBeanBrandingToolCool(String name) {
         super(name);
@@ -20,5 +20,14 @@ public class ItemBeanBrandingToolCool extends ItemBase {
     @Override
     public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
 
+    }
+
+
+    public static ItemStack getHotBrand(ItemStack coolBrand, long totalWorldTime){
+        ItemStack hBrand = new ItemStack(ModItems.itemBeanBrandingToolHeated, 1);
+        NBTTagCompound compound = coolBrand.getTagCompound();
+        compound.setLong("heat", totalWorldTime);
+        hBrand.setTagCompound(compound);
+        return hBrand;
     }
 }

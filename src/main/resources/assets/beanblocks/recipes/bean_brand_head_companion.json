@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LiL",
+		"iii"
+	],
+	"key": {
+		"L": {
+			"item": "minecraft:dye",
+			"data": 4
+		},
+		"i": {
+			"item": "minecraft:iron_nugget"
+		}
+	},
+	"result": {
+		"item": "beanblocks:brand_head",
+		"data": 1
+	}
+}

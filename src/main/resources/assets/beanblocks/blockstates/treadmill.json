@@ -1,0 +1,18 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"facing": {
+		  "north":  { "model": "beanblocks:treadmill" },
+		  "south":  { "model": "beanblocks:treadmill", "y": 180 },
+		  "west":  { "model": "beanblocks:treadmill", "y": 270 },
+		  "east":  { "model": "beanblocks:treadmill", "y": 90 }
+		},
+		"normal": {
+			"model": "beanblocks:treadmill"
+		},
+		"inventory": {
+			"model": "beanblocks:treadmill",
+			"transform": "forge:default-block"
+		}
+	}
+}

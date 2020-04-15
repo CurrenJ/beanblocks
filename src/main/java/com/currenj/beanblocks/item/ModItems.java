@@ -2,6 +2,8 @@ package com.currenj.beanblocks.item;
 
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.block.ModBlocks;
+import com.currenj.beanblocks.item.brand.ItemBeanBrandHead;
+import com.currenj.beanblocks.item.brand.ItemBeanBrandRod;
 import com.currenj.beanblocks.item.filter.press.ItemPressFilter;
 import com.currenj.beanblocks.item.filter.recycler.ItemRecyclerFilter;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -19,6 +21,8 @@ public class ModItems {
     public static ItemBeanBrandingToolHeated itemBeanBrandingToolHeated = new ItemBeanBrandingToolHeated("bean_brand_hot");
     public static ItemBeanBrandingToolCool itemBeanBrandingToolCool = new ItemBeanBrandingToolCool("bean_brand_cool");
     public static ItemGlowbeanDust itemGlowbeanDust = new ItemGlowbeanDust("glowbean_dust");
+    public static ItemBeanBrandHead itemBeanBrandHead = new ItemBeanBrandHead("brand_head");
+    public static ItemBeanBrandRod itemBeanBrandRod = new ItemBeanBrandRod("brand_rod");
 
     public static ItemArmor beanHelmet = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.HEAD, "bean_helmet");
     public static ItemArmor beanChestplate = new ItemArmor(BeanBlocks.beanArmor, EntityEquipmentSlot.CHEST, "bean_chestplate");
@@ -39,7 +43,9 @@ public class ModItems {
                 itemFossilizedBeans,
                 itemBeanBrandingToolHeated,
                 itemBeanBrandingToolCool,
-                itemGlowbeanDust
+                itemGlowbeanDust,
+                itemBeanBrandHead,
+                itemBeanBrandRod
         );
     }
 
@@ -53,6 +59,8 @@ public class ModItems {
         itemBeanBrandingToolHeated.registerItemModel();
         itemBeanBrandingToolCool.registerItemModel();
         itemGlowbeanDust.registerItemModel();
+        itemBeanBrandHead.registerItemModels();
+        itemBeanBrandRod.registerItemModels();
 
         beanHelmet.registerItemModel();
         beanChestplate.registerItemModel();

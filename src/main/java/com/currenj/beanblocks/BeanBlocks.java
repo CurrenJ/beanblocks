@@ -6,6 +6,7 @@ import com.currenj.beanblocks.item.filter.recycler.EnumRecyclerFilterVariants;
 import com.currenj.beanblocks.proxy.ClientProxy;
 import com.currenj.beanblocks.proxy.CommonProxy;
 import com.currenj.beanblocks.recipe.ModRecipes;
+import com.currenj.beanblocks.underbean.ModBiomes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -41,6 +42,7 @@ public class BeanBlocks {
         System.out.println(name + " is loading!");
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
+        ModWorldGen.registerDimensions();
 
         if(event.getSide().isClient()) {
             ClientProxy.registerEntityRenderingHandlers();
@@ -52,6 +54,7 @@ public class BeanBlocks {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        ModBiomes.initBiomeManagerAndDictionary();
         BeanBlocksSoundHandler.registerSounds();
         ModRecipes.init();
     }

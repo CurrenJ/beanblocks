@@ -64,7 +64,7 @@ public class EntityWorkBean extends EntityBeanBase {
     {
         super.initEntityAI();
         this.tasks.addTask(3, new EntityAIHarvestBeans(this, 1.0D, true));
-        this.tasks.addTask(4, new EntityAIDepositInBeanHole(this, 1.25D));
+        this.tasks.addTask(3, new EntityAIDepositInBeanHole(this, 1.25D));
     }
 
     private boolean canWorkBeanPickupItem(Item itemIn)

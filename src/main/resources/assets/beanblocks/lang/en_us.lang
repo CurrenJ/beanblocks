@@ -17,13 +17,17 @@ item.fossilized_beans.name=Fossilized Beans
 item.bean_brand_hot.name=Bean Brand (Hot)
 item.bean_brand_cool.name=Bean Brand
 item.glowbean_dust.name=Glowbean Dust
+item.brand_head.brand_head_bean_farmer.name="Bean Farmer" Brand Head
+item.brand_head.brand_head_companion.name="Companion" Brand Head
+item.brand_rod.brand_rod_iron.name=Iron Brand Rod
 
 # Blocks
 tile.bean_block.name=Block of Beans
 tile.bean_bucket.name=Bean Bucket (Empty)
 tile.bean_bucket_full.name=Bucket of Beans
-tile.bean_press.name=Bean Press	
+tile.bean_press.name=Bean Press
 tile.bean_recycler.name=Bean Recycler
+tile.brand_assembler.name=Brand Assembler
 tile.bean_block_hardened.name=Hardened Bean Block
 tile.bean_block_polished.name=Polished Bean Block
 tile.noise_machine.name=Sonic Bean Machine
@@ -32,7 +36,12 @@ tile.bean_hole.name=Bean Hole
 tile.hole_digger.name=Hole Digger
 tile.vibes_machine.name=Vibes Machine
 tile.glowbean.name=Glowbean
+tile.basic_generator.name=Basic Generator
 
 # Entity
 entity.Bean.name=Living Bean
 entity.Work Bean.name=Work Bean
+
+# Gen
+generator.underbeanbiome=The Underbean
+generator.underbeanbiome.info=The deepest, darkest beans.

@@ -2,21 +2,13 @@ package com.currenj.beanblocks.proxy;
 
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.entity.*;
+import com.currenj.beanblocks.entity.companionbean.EntityCompanionBean;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 
 public class ClientProxy extends CommonProxy {
 
@@ -35,6 +27,7 @@ public class ClientProxy extends CommonProxy {
     public static void registerEntityRenderingHandlers(){
         registerEntityRenderer(EntityWildBean.class);
         registerEntityRenderer(EntityWorkBean.class);
+        registerEntityRenderer(EntityCompanionBean.class);
         System.out.println("REGISTERED BEAN ENTITIES");
     }
 

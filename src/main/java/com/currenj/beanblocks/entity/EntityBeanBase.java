@@ -56,8 +56,6 @@ public abstract class EntityBeanBase extends EntityAnimal
     {
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityBeanBase.AIMeleeAttack());
-        this.tasks.addTask(1, new EntityBeanBase.AIPanic());
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
         this.tasks.addTask(3, new EntityAITempt(this, 1.25D, ModItems.pintoBean, false));
         this.tasks.addTask(4, new EntityAIFollowParent(this, 1.25D));

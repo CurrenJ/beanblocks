@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CFC",
+		"CNC",
+		"CCC"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:cobblestone"
+		},
+		"N": {
+			"item": "minecraft:netherrack"
+		},
+		"F": {
+			"item": "minecraft:flint_and_steel"
+		}
+	},
+	"result": {
+		"item": "beanblocks:brand_assembler"
+	}
+}

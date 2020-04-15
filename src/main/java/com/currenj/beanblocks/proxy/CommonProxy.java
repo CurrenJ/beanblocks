@@ -3,6 +3,7 @@ package com.currenj.beanblocks.proxy;
 import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.block.ModBlocks;
 import com.currenj.beanblocks.entity.EntityBeanBase;
+import com.currenj.beanblocks.entity.companionbean.EntityCompanionBean;
 import com.currenj.beanblocks.entity.EntityWildBean;
 import com.currenj.beanblocks.entity.EntityWorkBean;
 import com.currenj.beanblocks.item.ModItems;
@@ -35,7 +36,8 @@ public class CommonProxy {
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
             event.getRegistry().registerAll(
                     build(EntityWildBean.class, "wildbean", true),
-                    build(EntityWorkBean.class, "workbean")
+                    build(EntityWorkBean.class, "workbean"),
+                    build(EntityCompanionBean.class, "companionbean")
             );
             System.out.println("Entries registered");
     }

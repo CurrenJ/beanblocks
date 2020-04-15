@@ -1,0 +1,26 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"side": "blocks/furnace_top",
+			"end": "blocks/dispenser_front_vertical"
+		},
+		"model": "cube_column"
+	},
+	"variants": {
+		"normal": [{
+			"textures": {
+				"side": "blocks/furnace_top",
+				"end": "blocks/dispenser_front_vertical"
+			},
+			"model": "cube_column"
+		}],
+		"inventory": [{
+			"textures": {
+				"side": "blocks/furnace_top",
+				"end": "blocks/dispenser_front_vertical"
+			},
+			"model": "cube_column"
+		}]
+	}
+}
