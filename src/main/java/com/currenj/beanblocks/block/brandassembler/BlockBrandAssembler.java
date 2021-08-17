@@ -4,6 +4,7 @@ import com.currenj.beanblocks.BeanBlocks;
 import com.currenj.beanblocks.ModGuiHandler;
 import com.currenj.beanblocks.block.BlockTileEntity;
 import com.currenj.beanblocks.block.beanpress.TileEntityBeanPress;
+import com.currenj.beanblocks.item.ItemBeanBrandingToolCool;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,9 +29,11 @@ public class BlockBrandAssembler extends BlockTileEntity<TileEntityBrandAssemble
             TileEntityBrandAssembler tile = getTileEntity(world, pos);
             IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
             if (player.isSneaking()) {
-                tile.markDirty();
+
             } else {
-                player.openGui(BeanBlocks.instance, ModGuiHandler.BRAND_ASSEMBLER, world, pos.getX(), pos.getY(), pos.getZ());
+                if(heldItem.getItem() instanceof ItemBeanBrandingToolCool){
+                    player.setHeldItem(EnumHand.MAIN_HAND, ItemBeanBrandingToolCool.getHotBrand(heldItem, world.getTotalWorldTime()));
+                } else player.openGui(BeanBlocks.instance, ModGuiHandler.BRAND_ASSEMBLER, world, pos.getX(), pos.getY(), pos.getZ());
             }
         }
         return true;

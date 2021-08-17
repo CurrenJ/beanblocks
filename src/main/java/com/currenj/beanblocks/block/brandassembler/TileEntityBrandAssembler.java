@@ -5,6 +5,8 @@ import com.currenj.beanblocks.block.ModBlocks;
 import com.currenj.beanblocks.block.beanbucket.BlockBeanBucket;
 import com.currenj.beanblocks.block.beanbucket.BlockBeanBucketFull;
 import com.currenj.beanblocks.item.*;
+import com.currenj.beanblocks.item.brand.EnumBeanBrandHeadVariants;
+import com.currenj.beanblocks.item.brand.ItemBeanBrandHead;
 import com.currenj.beanblocks.item.filter.press.ItemPressFilter;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -122,12 +124,23 @@ public class TileEntityBrandAssembler extends TileEntity {
     }
 
     public ItemStack updateOutput(ItemStack stack) {
-        if (getInventory(INVENTORIES.HEAD).getStackInSlot(0).getCount() > 0 &&
-                getInventory(INVENTORIES.ROD).getStackInSlot(0).getCount() > 0 &&
-                getInventory(INVENTORIES.BIND).getStackInSlot(0).getCount() > 0) {
+        ItemStack head = getInventory(INVENTORIES.HEAD).getStackInSlot(0);
+        ItemStack rod = getInventory(INVENTORIES.ROD).getStackInSlot(0);
+        ItemStack bind = getInventory(INVENTORIES.BIND).getStackInSlot(0);
+        if (head.getCount() > 0 &&
+                rod.getCount() > 0 &&
+                bind.getCount() > 0) {
             ItemStack beanBrand = new ItemStack(ModItems.itemBeanBrandingToolHeated, 1);
             NBTTagCompound compound = beanBrand.getTagCompound();
             beanBrand.setTagCompound(saveSlotsToNBT(compound));
+
+            if(head.getItem() instanceof ItemBeanBrandHead){
+                if(EnumBeanBrandHeadVariants.byDyeDamage(head.getItemDamage()) == EnumBeanBrandHeadVariants.BEAN_FARMER)
+                    beanBrand.setStackDisplayName("Bean Farmer Brand");
+                else if(EnumBeanBrandHeadVariants.byDyeDamage(head.getItemDamage()) == EnumBeanBrandHeadVariants.COMPANION)
+                    beanBrand.setStackDisplayName("Bean Companion Brand");
+            }
+            
             System.out.println("NBT: " + beanBrand.getTagCompound());
             stack = beanBrand;
             return beanBrand;

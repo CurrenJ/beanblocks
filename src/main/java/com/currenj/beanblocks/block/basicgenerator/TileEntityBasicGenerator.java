@@ -166,11 +166,18 @@ public class TileEntityBasicGenerator extends TileEntity implements ITickable, I
             if (runnerBean == null || runnerBean.isDead) {
                 runnerBean = findBean();
                 if (runnerBean != null) {
-                    EnumFacing facing = world.getBlockState(pos).getValue(BlockBasicGenerator.FACING);
-                    if(facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH)
-                        runnerBean.setPositionAndRotation(pos.getX() + 0.5, pos.getY() + 0.0625, pos.getZ() + 0.5, 0, 0);
-                    else runnerBean.setPositionAndRotation(pos.getX() + 0.5, pos.getY() + 0.0625, pos.getZ() + 0.5, 90, 0);
                     runnerBean.setNoAI(true);
+                    EnumFacing facing = world.getBlockState(pos).getValue(BlockBasicGenerator.FACING);
+                    if(facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
+                        runnerBean.rotationYaw = 0;
+                        runnerBean.rotationPitch = 0;
+                        runnerBean.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 0.0625, pos.getZ() + 0.5);
+                    }
+                    else {
+                        runnerBean.rotationYaw = 90;
+                        runnerBean.rotationPitch = 0;
+                        runnerBean.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 0.0625, pos.getZ() + 0.5);
+                    }
                     System.out.println("Bean on treadmill!");
                 }
             }
